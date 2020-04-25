@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Notes</span>
+    <span class="notes-spacer"></span>
+    <button
+      *ngIf="isUserLoggedIn === true"
+      mat-button
+      color="secondary"
+      (click)="handleExitClicked()"
+    >
+      Exit
+    </button>
+    <button
+      *ngIf="isUserLoggedIn === false"
+      mat-button
+      color="secondary"
+      (click)="handleLoginClicked()"
+    >
+      Login
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

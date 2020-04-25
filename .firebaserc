@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "develop-with-rob": {
+      "hosting": {
+        "notes": [
+          "develop-with-rob"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "develop-with-rob"
+  }
+}
