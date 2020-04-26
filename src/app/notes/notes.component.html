@@ -1,5 +1,22 @@
-<p>notes works!</p>
+<mat-drawer-container id="notes-container">
+  <mat-drawer #drawer class="notes-sidenav" mode="side" opened>
+    <mat-list role="notes">
+      <ng-container *ngFor="let note of notes$ | async">
+        <mat-list-item role="notesItem">{{ note.title }}</mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+    <p *ngIf="notesEmpty">
+      No notes added yet
+    </p>
+  </mat-drawer>
 
-<button (click)="retrieveNotes()">Retrieve notes</button>
-
-<router-outlet></router-outlet>
+  <div class="notes-sidenav-content">
+    <notes-notes-top-navbar
+      (toggleSidenav)="drawer.toggle()"
+    ></notes-notes-top-navbar>
+    <div class="notes-sidenav-router-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-drawer-container>

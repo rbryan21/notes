@@ -1,0 +1,31 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+#notes-container {
+  width: inherit;
+  height: inherit;
+
+  .notes-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    // align-items: center;
+    // justify-content: center;
+
+    .notes-sidenav-router-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 30px;
+    }
+  }
+
+  .notes-sidenav {
+    padding: 20px;
+    min-width: 100px;
+    max-width: 300px;
+    width: 20%;
+  }
+}

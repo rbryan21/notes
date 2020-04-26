@@ -1,3 +1,35 @@
-<p>note works!</p>
+<div *ngIf="loading; else noteTemplate">
+  Fetching your note!
+</div>
 
-<button (click)="createNote()">Create note</button>
+<ng-template #noteTemplate>
+  <form
+    class="example-form"
+    #noteForm="ngForm"
+    (ngSubmit)="createNote(noteForm)"
+  >
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput required [(ngModel)]="note.title" name="title" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        required
+        [(ngModel)]="note.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="notes-space-around-container">
+      <button mat-raised-button color="primary" type="submit">
+        Create note
+      </button>
+      <button mat-raised-button color="secondary" type="reset">
+        Clear
+      </button>
+    </div>
+  </form>
+</ng-template>

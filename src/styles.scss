@@ -10,9 +10,15 @@ body {
 }
 
 .notes-icon {
-  padding: 0 14px;
+  padding: 0 25px;
+  cursor: pointer;
 }
 
 .notes-spacer {
   flex: 1 1 auto;
+}
+
+.notes-space-around-container {
+  display: flex;
+  justify-content: space-around;
 }

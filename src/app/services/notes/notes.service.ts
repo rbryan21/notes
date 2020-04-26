@@ -7,7 +7,7 @@ import {
   DocumentData,
 } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 
 interface NoteDocument {
   title: string;
@@ -47,6 +47,8 @@ export class NotesService {
     );
   }
 
+  // TODO: consolidate duplicated logic, add error handling
+
   retrieveNotesForUser(uid: string): Observable<Note[]> {
     const notesRef = this.afs.collection('notes', (ref) =>
       ref.where('uid', '==', uid)
@@ -61,5 +63,15 @@ export class NotesService {
         });
       })
     );
+  }
+
+  retrieveNote(id: string): Observable<Note> {
+    return this.afs
+      .doc<Note>(`notes/${id}`)
+      .valueChanges()
+      .pipe(
+        tap((note) => (note.id = id)),
+        take(1)
+      );
   }
 }

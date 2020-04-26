@@ -14,6 +14,10 @@ const routes: Routes = [
       import('./notes/notes.module').then((m) => m.NotesModule),
     canActivate: [LoggedInGuard],
   },
+  {
+    path: '**',
+    redirectTo: 'notes',
+  },
 ];
 
 @NgModule({
