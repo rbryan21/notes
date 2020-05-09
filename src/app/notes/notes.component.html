@@ -6,15 +6,10 @@
         <mat-divider></mat-divider>
       </ng-container>
     </mat-list>
-    <p *ngIf="notesEmpty">
-      No notes added yet
-    </p>
   </mat-drawer>
 
   <div class="notes-sidenav-content">
-    <notes-notes-top-navbar
-      (toggleSidenav)="drawer.toggle()"
-    ></notes-notes-top-navbar>
+    <n-notes-top-navbar (toggleSidenav)="drawer.toggle()"></n-notes-top-navbar>
     <div class="notes-sidenav-router-content">
       <router-outlet></router-outlet>
     </div>

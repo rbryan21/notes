@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NotesComponent } from './notes.component';
-import { NotesHomeComponent } from './notes-home/notes-home.component';
+import { NotesHomeComponent } from './home/notes-home.component';
 
 const routes: Routes = [
   {

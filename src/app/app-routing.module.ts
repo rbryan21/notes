@@ -8,11 +8,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
   },
+  // {
+  //   path: 'notes',
+  //   loadChildren: () =>
+  //     import('./notes/notes.module').then((m) => m.NotesModule),
+  //   canActivate: [LoggedInGuard],
+  // },
   {
-    path: 'notes',
+    path: 'dashboard',
     loadChildren: () =>
-      import('./notes/notes.module').then((m) => m.NotesModule),
-    canActivate: [LoggedInGuard],
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: '**',

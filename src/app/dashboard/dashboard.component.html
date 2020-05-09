@@ -1,0 +1,12 @@
+<mat-drawer-container id="dashboard-container">
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side" opened>
+    <n-dashboard-sidenav></n-dashboard-sidenav>
+  </mat-drawer>
+
+  <div class="dashboard-sidenav-content">
+    <n-dashboard-topnav></n-dashboard-topnav>
+    <div class="dashboard-sidenav-router-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-drawer-container>

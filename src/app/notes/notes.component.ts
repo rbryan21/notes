@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../services/notes/notes.service';
 import { User } from '../shared/models/user.model';
 import { AuthService } from '../services/auth/auth.service';
-import { map, tap, switchMapTo, switchMap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'notes-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
 })

@@ -1,0 +1,20 @@
+<mat-toolbar color="secondary">
+  <mat-toolbar-row>
+    <span>Manage your notes</span>
+    <span class="notes-spacer"></span>
+    <div id="notes-toolbar-actions-container">
+      <ng-container *ngFor="let action of actions">
+        <button
+          *ngIf="action.shouldDisplay()"
+          mat-icon-button
+          [attr.aria-label]="action.ariaLabel"
+          (click)="handleActionClicked(action)"
+          [matTooltipPosition]="'above'"
+          [matTooltip]="action.tooltip"
+        >
+          <mat-icon>{{ action.materialIcon }}</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

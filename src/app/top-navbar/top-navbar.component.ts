@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'notes-top-navbar',
@@ -34,12 +34,6 @@ export class TopNavbarComponent implements OnInit, OnDestroy {
   handleLoginClicked() {
     this.authService.googleSignin().subscribe(() => {
       console.log('User signed on');
-    });
-  }
-
-  handleSupClicked() {
-    this.authService.getCurrentUser().then((value) => {
-      console.log(value);
     });
   }
 }

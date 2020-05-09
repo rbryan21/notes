@@ -1,14 +1,15 @@
-<div *ngIf="loading; else noteTemplate">
-  Fetching your note!
+<div *ngIf="loading || errorLoadingNote; else noteTemplate">
+  <ng-container *ngIf="loading">
+    Fetching your note!
+  </ng-container>
+  <ng-container *ngIf="errorLoadingNote">
+    Failed to retrieve note
+  </ng-container>
 </div>
 
 <ng-template #noteTemplate>
-  <form
-    class="example-form"
-    #noteForm="ngForm"
-    (ngSubmit)="createNote(noteForm)"
-  >
-    <mat-form-field class="example-full-width">
+  <form #noteForm="ngForm" (ngSubmit)="createNote(noteForm)">
+    <mat-form-field class="full-width">
       <mat-label>Title</mat-label>
       <input
         matInput
@@ -22,7 +23,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <mat-label>Description</mat-label>
       <textarea
         matInput

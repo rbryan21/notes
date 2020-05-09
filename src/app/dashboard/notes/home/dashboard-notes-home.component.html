@@ -1,0 +1,18 @@
+<mat-list role="notes">
+  <div *ngIf="loading">
+    Fetching your notes!
+  </div>
+  <ng-container *ngFor="let note of notes$ | async">
+    <mat-list-item
+      class="note"
+      [matTooltip]="note.description"
+      [matTooltipPosition]="'above'"
+      (click)="handleNoteSelected(note)"
+      >{{ note.title }}</mat-list-item
+    >
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+<p *ngIf="notesEmpty">
+  No notes added yet
+</p>

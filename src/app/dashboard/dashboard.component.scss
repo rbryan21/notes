@@ -3,28 +3,26 @@
   width: 100%;
 }
 
-#notes-container {
+#dashboard-container {
   width: inherit;
   height: inherit;
 
-  .notes-sidenav-content {
+  .dashboard-sidenav-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-    // align-items: center;
-    // justify-content: center;
 
-    .notes-sidenav-router-content {
+    .dashboard-sidenav-router-content {
       display: flex;
       padding-left: 30px;
       padding-top: 30px;
     }
   }
 
-  .notes-sidenav {
+  .dashboard-sidenav {
     padding: 20px;
-    min-width: 100px;
+    min-width: 150px;
     max-width: 300px;
-    width: 20%;
+    width: 15%;
   }
 }

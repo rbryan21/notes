@@ -9,16 +9,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 
-import {
-  Observable,
-  of,
-  Subject,
-  BehaviorSubject,
-  from,
-  interval,
-  Subscription,
-  ReplaySubject,
-} from 'rxjs';
+import { Observable, BehaviorSubject, from, ReplaySubject, of } from 'rxjs';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { User } from '../../shared/models/user.model';
 
@@ -26,7 +17,9 @@ import { User } from '../../shared/models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject(null);
+  private userSubject: ReplaySubject<User | null> = new ReplaySubject<User | null>(
+    1
+  );
   private initialUserBroadcastComplete = new ReplaySubject<void>();
   initialUserBroadcastComplete$: Observable<
     void
@@ -39,31 +32,34 @@ export class AuthService {
     private router: Router
   ) {
     this.broadcastUserChanges().subscribe(() => {
-      console.log('Initiated user broadcast complete');
+      console.log('Initial user broadcast complete');
       this.initialUserBroadcastComplete.next();
     });
   }
 
   broadcastUserChanges(): Observable<void> {
     return from(this.afAuth.user).pipe(
-      map((user: User) => {
-        let currentUser;
+      switchMap((user: User) => {
         if (user) {
-          console.log('Current user present');
-          currentUser = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          console.log('No current user present');
-          currentUser = null;
+          return of(null);
         }
-        this.userSubject.next(user);
+      }),
+      tap((currentUser) => {
+        console.log(
+          `Broadcasting current user: ${JSON.stringify(currentUser)}`
+        );
+        this.userSubject.next(currentUser);
       })
     );
   }
 
   isUserLoggedIn(): Observable<boolean> {
     return this.initialUserBroadcastComplete.asObservable().pipe(
-      map(() => {
-        return !!this.userSubject.value;
+      switchMap(() => this.user$),
+      map((user: User) => {
+        return !!user;
       })
     );
   }
@@ -75,9 +71,7 @@ export class AuthService {
     );
   }
 
-  getCurrentUser() {
-    return this.afAuth.currentUser;
-  }
+  // TODO: Use local storage to store user session?
 
   async signOut() {
     await this.afAuth.signOut();

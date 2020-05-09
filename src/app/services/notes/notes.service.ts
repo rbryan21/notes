@@ -21,11 +21,7 @@ interface NoteDocument {
 export class NotesService {
   constructor(private afs: AngularFirestore) {}
 
-  createNote(
-    title: string,
-    description: string,
-    uid: string
-  ): Observable<Note> {
+  createNote({ uid, title, description }: Note): Observable<Note> {
     const id = `${uid}_${new Date().getTime()}`;
     const noteDocument: NoteDocument = {
       title,
@@ -38,6 +34,27 @@ export class NotesService {
     );
 
     return from(noteRef.set(noteDocument)).pipe(
+      map(() => {
+        return {
+          ...noteDocument,
+          id,
+        } as Note;
+      })
+    );
+  }
+
+  updateNote({ id, uid, title, description }: Note): Observable<Note> {
+    const noteDocument: NoteDocument = {
+      title,
+      description,
+      uid,
+    };
+
+    const noteRef: AngularFirestoreDocument<NoteDocument> = this.afs.doc(
+      `notes/${id}`
+    );
+
+    return from(noteRef.set(noteDocument, { merge: true })).pipe(
       map(() => {
         return {
           ...noteDocument,
@@ -66,6 +83,22 @@ export class NotesService {
   }
 
   retrieveNote(id: string): Observable<Note> {
+    return this.afs
+      .doc<Note>(`notes/${id}`)
+      .valueChanges()
+      .pipe(
+        tap((note) => {
+          if (!note) {
+            throw Error(`No note found with id: ${id}`);
+          }
+          console.log('Retrieved note: ', JSON.stringify(note));
+          note.id = id;
+        }),
+        take(1)
+      );
+  }
+
+  upsertNote(id: string): Observable<Note> {
     return this.afs
       .doc<Note>(`notes/${id}`)
       .valueChanges()

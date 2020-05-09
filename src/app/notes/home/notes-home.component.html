@@ -1,0 +1,9 @@
+<mat-list role="notes">
+  <ng-container *ngFor="let note of notes$ | async">
+    <mat-list-item role="notesItem">{{ note.title }}</mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
+<p *ngIf="notesEmpty">
+  No notes added yet
+</p>
